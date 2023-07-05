@@ -1,14 +1,13 @@
-
-const { getAll, create, remove} = require('../controllers/productImg.controllers');
+const { getAll,create, remove } = require('../controllers/productImg.controllers');
 const express = require('express');
+const verifyJWT = require("../utils/verifyJWT")
 
-const upload = require("../utils/multer");
-const verifyJWT = require('../utils/verifyJWT');
+const upload = require("../utils/multer")
 
 const routerProductImg = express.Router();
 
 routerProductImg.route('/')
-    .get(getAll)
+    .get(verifyJWT,getAll)
     .post(upload.single('image'),verifyJWT, create);
 
 routerProductImg.route('/:id')
